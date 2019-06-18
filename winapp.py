@@ -5,7 +5,7 @@ from PySide2.QtGui import QWindow
 from PySide2.QtWidgets import *
 
 
-class MainFrame(QFrame):
+class MyFrame(MainFrame):
     def __init__(self, parent=None):
         super(MainFrame, self).__init__();
         calc_hnd = win32gui.FindWindow(None, u"计算器")
@@ -17,6 +17,7 @@ class MainFrame(QFrame):
         self.layout.addWidget(self.button)
         self.layout.addWidget(self.calc_wdgt)
         self.title = "test"
+
         self.setLayout(self.layout)
         self.setMinimumSize(800, 600)
         self.showNormal()
@@ -24,6 +25,6 @@ class MainFrame(QFrame):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    frame = MainFrame()
+    frame = MyFrame()
     frame.show()
     sys.exit(app.exec_())
