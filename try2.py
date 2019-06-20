@@ -2,19 +2,19 @@ import sys
 import subprocess
 import time
 import win32api, win32con, win32gui
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
 from PySide2.QtGui import QWindow
 from PySide2.QtCore import Qt
 from des_20190620 import Ui_MainWindow
 
 
-def on_pushButton_connect_click(self):
+def on_pushButton_connect_click():
     subprocess.Popen("mspaint.exe")
     time.sleep(2)
     calc_hwnd = win32gui.FindWindow(None, "无标题 - 画图")
     calc_win = QWindow.fromWinId(calc_hwnd)
-    calc_win.setFlags(Qt.WindowTitleHint)
-    calc_wdgt =
+    calc_win.setFlags(calc_win.flags() | Qt.CustomizeWindowHint | Qt.WindowTitleHint|Qt.WindowMaximized)
+    
     print(calc_win)
 
 
