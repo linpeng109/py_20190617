@@ -39,12 +39,12 @@ class Example(QMainWindow):
 
         self.setWindowTitle("测试")
 
-        self.calc_hnd = win32gui.FindWindow(None, u"计算器")
+        self.calc_hnd = win32gui.FindWindow("TkChild", None)
         win32gui.SetWindowLong(self.calc_hnd, win32con.GWL_STYLE, win32con.GW_CHILD | win32con.WS_VISIBLE)
 
         self.calc_win = QWindow.fromWinId(self.calc_hnd)
         # self.calc_win.setWindowFlags(self.calc_win.flags() | Qt.FramelessWindowHint | Qt.WindowTitleHint)
-        # self.calc_win.setGeometry(0, 0, 640, 480)
+        self.calc_win.setGeometry(0, 0, 640, 480)
         self.calc_wdgt = self.createWindowContainer(self.calc_win)
         self.calc_wdgt.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.setCentralWidget(self.calc_wdgt)
@@ -61,7 +61,7 @@ class Example(QMainWindow):
 
     @staticmethod
     def runExe():
-        exePath = "C:\\Windows\\system32\\calc.exe"
+        exePath = "git-gui.exe"
         subprocess.Popen(exePath)
 
 

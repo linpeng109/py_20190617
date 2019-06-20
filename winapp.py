@@ -5,9 +5,9 @@ from PySide2.QtGui import QWindow
 from PySide2.QtWidgets import *
 
 
-class MyFrame(MainFrame):
+class MyFrame(QMainWindow):
     def __init__(self, parent=None):
-        super(MainFrame, self).__init__();
+        super(MyFrame).__init__();
         calc_hnd = win32gui.FindWindow(None, u"计算器")
         calc_win = QWindow.fromWinId(calc_hnd)
         print(calc_hnd)
