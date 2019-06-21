@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'des_20190620.ui',
 # licensing of 'des_20190620.ui' applies.
 #
-# Created: Thu Jun 20 16:33:56 2019
+# Created: Fri Jun 21 11:15:58 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,6 +26,15 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton.setObjectName("pushButton")
         self.verticalLayout.addWidget(self.pushButton)
+        self.pushButton_2 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.verticalLayout.addWidget(self.pushButton_2)
+        self.pushButton_3 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.verticalLayout.addWidget(self.pushButton_3)
+        self.pushButton_4 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.verticalLayout.addWidget(self.pushButton_4)
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label.setFrameShadow(QtWidgets.QFrame.Raised)
         self.label.setLineWidth(2)
@@ -45,6 +54,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "MainWindow", None, -1))
-        self.pushButton.setText(QtWidgets.QApplication.translate("MainWindow", "PushButton", None, -1))
+        self.pushButton.setText(QtWidgets.QApplication.translate("MainWindow", "启动画笔", None, -1))
+        self.pushButton_2.setText(QtWidgets.QApplication.translate("MainWindow", "显示窗口", None, -1))
+        self.pushButton_3.setText(QtWidgets.QApplication.translate("MainWindow", "隐含窗口", None, -1))
+        self.pushButton_4.setText(QtWidgets.QApplication.translate("MainWindow", "关闭窗口", None, -1))
         self.label.setText(QtWidgets.QApplication.translate("MainWindow", "work space", None, -1))
 
