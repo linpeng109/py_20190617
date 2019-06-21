@@ -30,7 +30,19 @@ class TestFrame(QMainWindow):
         win32gui.ShowWindow(self.calc_hwnd, win32con.SW_HIDE)
 
     def on_close_connect_click(self):
-        win32gui.CloseWindow(self.calc_hwnd)
+        win32gui.PostMessage(self.calc_hwnd, win32con.WM_CLOSE)
+
+    def on_get_connect_click(self):
+        ISTYLE = win32gui.GetWindowLong(self.calc_hwnd, win32con.GWL_STYLE)
+        win32gui.SetWindowLong(self.calc_hwnd, win32con.GWL_STYLE, ISTYLE & ~win32con.GW_CHILD)
+        win32gui.SetWindowPos(self.calc_hwnd, None, 0, 0, 600, 400,
+                              win32con.SWP_NOSIZE |
+                              win32con.SWP_NOMOVE |
+                              win32con.SWP_NOACTIVATE |
+                              win32con.SWP_FRAMECHANGED)
+        RESULT = win32gui.SetParent(self.calc_hwnd, self.winId())
+
+        print(RESULT)
 
 
 if __name__ == "__main__":
@@ -40,5 +52,6 @@ if __name__ == "__main__":
     test.ui.pushButton_2.clicked.connect(test.on_show_connect_click)
     test.ui.pushButton_3.clicked.connect(test.on_hidden_conncet_click)
     test.ui.pushButton_4.clicked.connect(test.on_close_connect_click)
+    test.ui.pushButton_5.clicked.connect(test.on_get_connect_click)
     test.show()
     sys.exit(app.exec_())

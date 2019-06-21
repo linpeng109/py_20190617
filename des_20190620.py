@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'des_20190620.ui',
 # licensing of 'des_20190620.ui' applies.
 #
-# Created: Fri Jun 21 11:15:58 2019
+# Created: Fri Jun 21 13:40:49 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,6 +35,9 @@ class Ui_MainWindow(object):
         self.pushButton_4 = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.pushButton_4.setObjectName("pushButton_4")
         self.verticalLayout.addWidget(self.pushButton_4)
+        self.pushButton_5 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButton_5.setObjectName("pushButton_5")
+        self.verticalLayout.addWidget(self.pushButton_5)
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label.setFrameShadow(QtWidgets.QFrame.Raised)
         self.label.setLineWidth(2)
@@ -58,5 +61,6 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(QtWidgets.QApplication.translate("MainWindow", "显示窗口", None, -1))
         self.pushButton_3.setText(QtWidgets.QApplication.translate("MainWindow", "隐含窗口", None, -1))
         self.pushButton_4.setText(QtWidgets.QApplication.translate("MainWindow", "关闭窗口", None, -1))
-        self.label.setText(QtWidgets.QApplication.translate("MainWindow", "work space", None, -1))
+        self.pushButton_5.setText(QtWidgets.QApplication.translate("MainWindow", "获取STYLE", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("MainWindow", "工作区", None, -1))
 

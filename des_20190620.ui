@@ -56,6 +56,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>获取STYLE</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label">
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
@@ -64,7 +71,7 @@
         <number>2</number>
        </property>
        <property name="text">
-        <string>work space</string>
+        <string>工作区</string>
        </property>
       </widget>
      </item>
