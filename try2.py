@@ -16,9 +16,9 @@ class TestFrame(QMainWindow):
         self.ui.setupUi(self)
 
     def on_start_connect_click(self):
-        subprocess.Popen("mspaint.exe")
-        time.sleep(2)
-        self.calc_hwnd = win32gui.FindWindow(None, "无标题 - 画图")
+        subprocess.Popen("D:/Program Files/GEOVIA/Surpac/69_x64/x64/bin/surpac2.exe ")
+        time.sleep(60)
+        self.calc_hwnd = win32gui.FindWindow(None, "GEOVIA Surpac 6.9 (x64) - D:/Workspace/py_20190617 (Profile:)")
         self.calc_win = QWindow.fromWinId(self.calc_hwnd)
         # self.calc_win.setFlags(self.calc_win.flags() | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowMaximized)
         print(self.calc_win)
