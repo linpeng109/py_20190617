@@ -1,6 +1,5 @@
 import os, signal
 
-
 def kill(pids):
     for pid in pids:
         try:
