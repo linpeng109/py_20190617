@@ -1,9 +1,10 @@
-import sys
-import os
 import datetime
-from PySide2.QtWidgets import *
+import os
+import sys
+
 from PySide2.QtCore import *
 from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
+from PySide2.QtWidgets import *
 
 
 ################################################
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow):
 
         ####第一个tab
         self.webview = WebEngineView(self)  # self必须要有，是将主窗口作为参数，传给浏览器
-        self.webview.load(QUrl("http://www.ifeng.com"))
+        self.webview.load(QUrl("http://www.auxin-tech.com.cn/"))
         self.create_tab(self.webview)
 
     # 创建tab

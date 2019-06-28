@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>381</height>
+    <width>795</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,65 +17,86 @@
    <double>4.000000000000000</double>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QPushButton" name="startBtn">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>661</width>
-      <height>351</height>
+      <x>10</x>
+      <y>10</y>
+      <width>60</width>
+      <height>20</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>启动画笔</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>显示窗口</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>隐含窗口</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>关闭窗口</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string>获取STYLE</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="lineWidth">
-        <number>2</number>
-       </property>
-       <property name="text">
-        <string>工作区</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>启动Surpace2</string>
+    </property>
+    <property name="autoRepeatInterval">
+     <number>90</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopBtn">
+    <property name="geometry">
+     <rect>
+      <x>81</x>
+      <y>10</y>
+      <width>60</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>关闭Surpace2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="showBtn">
+    <property name="geometry">
+     <rect>
+      <x>152</x>
+      <y>10</y>
+      <width>60</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>显示Surpace2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="hiddenBtn">
+    <property name="geometry">
+     <rect>
+      <x>223</x>
+      <y>10</y>
+      <width>60</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>隐含Surpace2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closeAppBtn">
+    <property name="geometry">
+     <rect>
+      <x>294</x>
+      <y>10</y>
+      <width>56</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>关闭应用</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="getWinBtn">
+    <property name="geometry">
+     <rect>
+      <x>365</x>
+      <y>10</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>获取窗口</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -83,7 +104,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>660</width>
+     <width>795</width>
      <height>18</height>
     </rect>
    </property>

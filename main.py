@@ -1,14 +1,19 @@
-import sys
 import subprocess
+import sys
 import time
-import win32api, win32con, win32gui
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
+
+import win32con
+import win32gui
 from PySide2.QtGui import QWindow
-from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QApplication, QMainWindow
+
 from des_20190620 import Ui_MainWindow
 
 
 class TestFrame(QMainWindow):
+    calc_hwnd = 0
+
+    calc_win = 0
 
     def __init__(self):
         super().__init__()
@@ -17,8 +22,11 @@ class TestFrame(QMainWindow):
 
     def on_start_connect_click(self):
         subprocess.Popen("D:/Program Files/GEOVIA/Surpac/69_x64/x64/bin/surpac2.exe ")
-        time.sleep(60)
+        # subprocess.Popen("C:/Program Files/Microsoft Office/Office15/WINWORD.EXE")
+        time.sleep(50)
         self.calc_hwnd = win32gui.FindWindow(None, "GEOVIA Surpac 6.9 (x64) - D:/Workspace/py_20190617 (Profile:)")
+        # self.calc_hwnd = win32gui.FindWindow("NetUIHWND", None)
+        print(self.calc_hwnd)
         self.calc_win = QWindow.fromWinId(self.calc_hwnd)
         # self.calc_win.setFlags(self.calc_win.flags() | Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowMaximized)
         print(self.calc_win)
@@ -48,10 +56,11 @@ class TestFrame(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     test = TestFrame()
-    test.ui.pushButton.clicked.connect(test.on_start_connect_click)
-    test.ui.pushButton_2.clicked.connect(test.on_show_connect_click)
-    test.ui.pushButton_3.clicked.connect(test.on_hidden_conncet_click)
-    test.ui.pushButton_4.clicked.connect(test.on_close_connect_click)
-    test.ui.pushButton_5.clicked.connect(test.on_get_connect_click)
+    test.ui.startBtn.clicked.connect(test.on_start_connect_click)
+    test.ui.showBtn.clicked.connect(test.on_show_connect_click)
+    test.ui.hiddenBtn.clicked.connect(test.on_hidden_conncet_click)
+    # test.ui.closeAppBtn.clicked.connect(test.on_close_connect_click)
+    test.ui.stopBtn.clicked.connect(test.on_close_connect_click())
+    test.ui.getWinBtn.clicked.connect(test.on_get_connect_click)
     test.show()
     sys.exit(app.exec_())
