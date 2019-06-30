@@ -16,7 +16,7 @@ def get_hwnds(pid):
     win32gui.EnumWindows(callback, hwnds)
     return hwnds
 
-
-result = get_hwnds(15304)
-
-print(result[0])
+#
+# result = get_hwnds(8164)
+#
+# print(result[0])

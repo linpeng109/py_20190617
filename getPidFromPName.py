@@ -10,4 +10,4 @@ def getPids(pname):
         pidList.add(str(pid)[begin:end].strip())
     return pidList
 
-print(getPids("surpac2"))
+# print(getPids("surpac2"))

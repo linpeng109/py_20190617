@@ -1,5 +1,6 @@
 import subprocess
-import os
 
-subprocess.Popen("cd D:/Program Files/GEOVIA/Surpac/69_x64/x64/bin/")
-os.startfile("D:/Program Files/GEOVIA/Surpac/69_x64/x64/bin/surpac2.exe")
+
+def start():
+    cmd = "C:/Program Files (x86)/GEOVIA/Surpac/681/nt_i386/bin/surpac2.exe"
+    subprocess.Popen(cmd)
