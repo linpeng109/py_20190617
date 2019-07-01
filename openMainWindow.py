@@ -1,50 +1,43 @@
 import sys
-
-from PySide2.QtWidgets import QMainWindow, QApplication, QPushButton, QVBoxLayout
-
-import startupProcess as StartupProcess
-import getPidFromPName as GetPidFromPName
-import getHwndFromPid as GetHwndFromPid
-
-
-class MyMainFrame(QMainWindow):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    def setupUI(self):
-        self.setWindowTitle("奥信爆破客户端")
-        self.resize(600, 480)
-        self.layout.set
-        self.layout = QVBoxLayout()
-
-        self.pushBtn_startProcess = QPushButton('Start Surpac', self)
-        self.pushBtn_startProcess.clicked.connect(self.on_pushBtn_clicked_startupProcess)
-        self.layout.addWidget(self.pushBtn_startProcess)
-
-        self.pushBtn_getPidFromPName = QPushButton('Get Surpac Pid', self)
-        self.pushBtn_getPidFromPName.clicked.connect(self.on_pushBtn_clicked_getPidFromPName)
-        self.layout.addWidget(self.pushBtn_getPidFromPName)
+import time
+from PySide2 import QtWidgets
+from getHwndFromPid import GetHwndFromPid
+from startupProcess import StartupProcess
+from getPidFromPName import GetPidFromPName
+from MainFrame import Ui_MainWindow
 
 
-        # self.pushBtn = QPushButton('Start Surpac', self)
-        # self.pushBtn.clicked.connect(self.on_pushBtn_clicked_startupProcess)
-        # self.layout.addWidget(self.pushBtn)
+class MyMainWindow(QtWidgets.QMainWindow):
+    cmd = ''
+    pname = ''
+    hwnds = ''
 
-        self.setLayout(self.layout)
+    def on_startSurpac_clicked_btn(self):
+        startupProcess = StartupProcess()
+        startupProcess.start()
 
-    def on_pushBtn_clicked_startupProcess(self):
-        print("start surpac ......")
-        StartupProcess.start()
+    def on_getPidFromPName_clicked(self):
+        getPidFromPName = GetPidFromPName()
+        pidSet = getPidFromPName.getPids("surpac2")
+        for pid in pidSet:
+            # print(pid)
+            self.pid = pid
 
-    def on_pushBtn_clicked_getPidFromPName(self):
-        print("getPidFromPName ......")
-        GetPidFromPName.getPids("surpac2")
+    def on_getHwndFromPid_clicked(self):
+        print("self.pid=%s" % self.pid)
+        getHwndFromPid = GetHwndFromPid()
+        getHwndFromPid.getHwnds()
+        time.sleep(5)
+        print(getHwndFromPid.hwnds)
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    the_myframe = MyMainFrame()
-    the_myframe.setupUI()
-    the_myframe.show()
-
+    app = QtWidgets.QApplication(sys.argv)
+    mainWindow = MyMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(mainWindow)
+    ui.startSurpacBtn.clicked.connect(mainWindow.on_startSurpac_clicked_btn)
+    ui.getPidFormPNameBtn.clicked.connect(mainWindow.on_getPidFromPName_clicked)
+    ui.getHwndFromPidBtn.clicked.connect(mainWindow.on_getHwndFromPid_clicked)
+    mainWindow.show()
     sys.exit(app.exec_())
