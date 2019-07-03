@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>738</width>
     <height>480</height>
    </rect>
   </property>
@@ -25,37 +25,37 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="startSurpacBtn">
+      <widget class="QPushButton" name="StartSurpacBtn">
        <property name="text">
         <string>Start surpac2</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="getPidFormPNameBtn">
+      <widget class="QPushButton" name="SetSurpacWindowHideBtn">
        <property name="text">
-        <string>Get Pid Form PName</string>
+        <string>Set Surpac2 windows Hide</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="getHwndFromPidBtn">
+      <widget class="QPushButton" name="SetSurpac2WindowShowBtn">
        <property name="text">
-        <string>Get Hwnd form Pid</string>
+        <string>Set Surpac2 windows Show</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="getWindowFormHwndBtn">
+      <widget class="QPushButton" name="MoveSurpac2windowBtn">
        <property name="text">
-        <string>Get Window form Hwnd</string>
+        <string>Move Surpac2 windows</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="killProcessFormPidBtn">
+      <widget class="QPushButton" name="KillSurpac2Btn">
        <property name="text">
-        <string>Kill Process Form Pid</string>
+        <string>Kill Surpac2</string>
        </property>
       </widget>
      </item>
@@ -67,7 +67,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>738</width>
      <height>18</height>
     </rect>
    </property>
