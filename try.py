@@ -6,6 +6,7 @@ import time
 
 import win32con
 import win32gui
+import win32api
 import win32process
 from PySide2.QtWidgets import QApplication, QMainWindow
 
@@ -80,38 +81,47 @@ if __name__ == "__main__":
     print("pid=%s" % pid)
 
     # Get window's handler,but must wait a moment!
-    time.sleep(30)
     hwnds = []
-    while len(hwnds) == 0:
+    while True:
         hwnds = getHwndFromPid(pid)
-    print("hwnd=%s" % hwnds[0])
+        print("hwnds.len=%s" % len(hwnds))
+        if (len(hwnds) > 0):
+            title = win32gui.GetWindowText(hwnds[0])
+            if ("Surpac" in title):
+                break
+        time.sleep(1)
+    # print("hwnd=%s" % hwnds[0])
 
-    hwnd2 = win32gui.FindWindow(None, "GEOVIA Surpac 6.9 - D:/Workspace/py_20190617 (Profile:)")
-    print("hwnd2=%s" % hwnd2)
+    # hwnd2 = win32gui.FindWindow(None, "GEOVIA Surpac 6.9 - D:/Workspace/py_20190617 (Profile:)")
+    # print("hwnd2=%s" % hwnd2)
 
     # Open main window
     app = QApplication()
     mainWindow = QMainWindow()
     mainFrame = Ui_MainWindow()
     mainFrame.setupUi(mainWindow)
-    mainFrame.SetSurpacWindowHideBtn.clicked.connect(on_hidden_conncet_click(hwnds[0]))
-    mainFrame.SetSurpac2WindowShowBtn.clicked.connect(on_show_connect_click(hwnds[0]))
-    pids = []
-    pids.append(pid)
-    mainFrame.KillSurpac2Btn.clicked.connect(killProcess(pids))
+    # mainFrame.SetSurpacWindowHideBtn.clicked.connect(on_hidden_conncet_click(hwnds[0]))
+    # mainFrame.SetSurpac2WindowShowBtn.clicked.connect(on_show_connect_click(hwnds[0]))
+    # pids = []
+    # pids.append(pid)
+    # mainFrame.KillSurpac2Btn.clicked.connect(killProcess(pids))
     mainWindow.showMaximized()
+
+    # 隐含窗口标题栏win32con.GW_CHILD &
+    ISTYLE = win32gui.GetWindowLong(hwnds[0], win32con.GWL_STYLE)
+    win32gui.SetWindowLong(hwnds[0], win32con.GWL_STYLE, ISTYLE & ~win32con.WS_CAPTION)
+    win32gui.SetWindowPos(hwnds[0], win32con.HWND_TOPMOST, 250, 0, 1024, 768, win32con.SWP_NOSIZE | win32con.SWP_NOMOVE)
+    # print(win32gui.SetForegroundWindow(hwnds[0]))
+    # win32gui.SetFocus()
+    # 解决子窗口获取焦点问题
+    hForeWnd = win32api.GetForegroundWindow();
+    dwCurID = win32process.GetCurrentThreadId();
+    dwForeID = win32process.GetWindowThreadProcessId(hForeWnd, None);
 
     # Set surpac window as subwindows
     time.sleep(1)
     win32gui.SetParent(hwnds[0], mainWindow.winId())
     time.sleep(1)
 
-    # ISTYLE = win32gui.GetWindowLong(hwnds[0], win32con.GWL_STYLE)
-    # win32gui.SetWindowLong(hwnds[0], win32con.GWL_STYLE, ISTYLE & win32con.GW_CHILD)
-    # win32gui.SetWindowPos(hwnds[0], None, 200, 0, 800, 600,
-    #                       win32con.SWP_NOSIZE |
-    #                       win32con.SWP_NOMOVE |
-    #                       win32con.SWP_NOACTIVATE)
     # exit app
-
     sys.exit(app.exec_())
