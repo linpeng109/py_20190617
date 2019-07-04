@@ -114,10 +114,12 @@ if __name__ == "__main__":
     # print(win32gui.SetForegroundWindow(hwnds[0]))
     # win32gui.SetFocus()
     # 解决子窗口获取焦点问题
-    hForeWnd = win32api.GetForegroundWindow();
-    dwCurID = win32process.GetCurrentThreadId();
-    dwForeID = win32process.GetWindowThreadProcessId(hForeWnd, None);
-
+    # hForeWnd = win32process.GetForegroundWindow();
+    dwCurID = win32process.GetCurrentProcessId();
+    dwForeID = win32process.GetWindowThreadProcessId(hwnds[0]);
+    print(dwCurID)
+    print(dwForeID)
+    win32process.AttachThreadInput(dwCurID, dwForeID[0], True);
     # Set surpac window as subwindows
     time.sleep(1)
     win32gui.SetParent(hwnds[0], mainWindow.winId())
