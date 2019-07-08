@@ -12,6 +12,7 @@ if __name__ == "__main__":
     frame = QMainWindow()
     frame.resize(800, 600)
     frame.setWindowTitle("测试")
+
     webView = QWebEngineView()
     webView.load(QUrl("web_file.html"))
 

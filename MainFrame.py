@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'MainFrame.ui',
 # licensing of 'MainFrame.ui' applies.
 #
-# Created: Wed Jul  3 17:14:40 2019
+# Created: Mon Jul  8 16:29:12 2019
 #      by: pyside2-uic  running on PySide2 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,33 +13,33 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(738, 480)
+        MainWindow.resize(640, 480)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 201, 231))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.tab)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.StartSurpacBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.StartSurpacBtn.setObjectName("StartSurpacBtn")
-        self.verticalLayout.addWidget(self.StartSurpacBtn)
-        self.SetSurpacWindowHideBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.SetSurpacWindowHideBtn.setObjectName("SetSurpacWindowHideBtn")
-        self.verticalLayout.addWidget(self.SetSurpacWindowHideBtn)
-        self.SetSurpac2WindowShowBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.SetSurpac2WindowShowBtn.setObjectName("SetSurpac2WindowShowBtn")
-        self.verticalLayout.addWidget(self.SetSurpac2WindowShowBtn)
-        self.MoveSurpac2windowBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.MoveSurpac2windowBtn.setObjectName("MoveSurpac2windowBtn")
-        self.verticalLayout.addWidget(self.MoveSurpac2windowBtn)
-        self.KillSurpac2Btn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.KillSurpac2Btn.setObjectName("KillSurpac2Btn")
-        self.verticalLayout.addWidget(self.KillSurpac2Btn)
+        self.horizontalLayout_1 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_1.setObjectName("horizontalLayout_1")
+        self.verticalLayout.addLayout(self.horizontalLayout_1)
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab_2)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.tabWidget.addTab(self.tab_2, "")
+        self.horizontalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 738, 18))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 640, 18))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -47,13 +47,11 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "MainWindow", None, -1))
-        self.StartSurpacBtn.setText(QtWidgets.QApplication.translate("MainWindow", "Start surpac2", None, -1))
-        self.SetSurpacWindowHideBtn.setText(QtWidgets.QApplication.translate("MainWindow", "Set Surpac2 windows Hide", None, -1))
-        self.SetSurpac2WindowShowBtn.setText(QtWidgets.QApplication.translate("MainWindow", "Set Surpac2 windows Show", None, -1))
-        self.MoveSurpac2windowBtn.setText(QtWidgets.QApplication.translate("MainWindow", "Move Surpac2 windows", None, -1))
-        self.KillSurpac2Btn.setText(QtWidgets.QApplication.translate("MainWindow", "Kill Surpac2", None, -1))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtWidgets.QApplication.translate("MainWindow", "首页", None, -1))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtWidgets.QApplication.translate("MainWindow", "三维设计", None, -1))
 

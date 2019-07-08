@@ -6,9 +6,11 @@ import time
 
 import win32con
 import win32gui
-import win32api
 import win32process
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtGui import QWindow
+from PySide2.QtCore import QUrl
+from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
 from MainFrame import Ui_MainWindow
 
@@ -71,16 +73,16 @@ def killProcess(pids):
 
 
 if __name__ == "__main__":
-    # Kill all processes that named surpac
+    # 关闭所有带有关键字surpac的进程
     pids = getPidsFromPName("surpac2")
     print("pidList=%s" % pids)
     killProcess(pids)
 
-    # Startup surpac process
+    # 启动surpac进程
     pid = startProcess()
     print("pid=%s" % pid)
 
-    # Get window's handler,but must wait a moment!
+    # 根据窗口标题关键字surpac，获取surpac主工作窗口句柄（非Logoc窗口）
     hwnds = []
     while True:
         hwnds = getHwndFromPid(pid)
@@ -92,38 +94,37 @@ if __name__ == "__main__":
         time.sleep(1)
     # print("hwnd=%s" % hwnds[0])
 
+    # 测试校验
     # hwnd2 = win32gui.FindWindow(None, "GEOVIA Surpac 6.9 - D:/Workspace/py_20190617 (Profile:)")
     # print("hwnd2=%s" % hwnd2)
 
-    # Open main window
+    # 建立并打开主窗口
     app = QApplication()
     mainWindow = QMainWindow()
     mainFrame = Ui_MainWindow()
     mainFrame.setupUi(mainWindow)
-    # mainFrame.SetSurpacWindowHideBtn.clicked.connect(on_hidden_conncet_click(hwnds[0]))
-    # mainFrame.SetSurpac2WindowShowBtn.clicked.connect(on_show_connect_click(hwnds[0]))
-    # pids = []
-    # pids.append(pid)
-    # mainFrame.KillSurpac2Btn.clicked.connect(killProcess(pids))
+    mainWindow.setWindowTitle("中矿智信大数据集成客户端")
     mainWindow.showMaximized()
+
+    webView = QWebEngineView(mainWindow)
+    webView.load(QUrl("http://www.zjky.cn/"))
+    mainFrame.horizontalLayout_1.addWidget(webView)
+    time.sleep(1)
+    # 设置surpac窗口为主窗口的子窗口
+    # 方法1
+    # win32gui.SetParent(hwnds[0], mainWindow.winId())
+    # 方法2
+    native_wnd = QWindow.fromWinId(hwnds[0])
+    centralWidget = QWidget.createWindowContainer(native_wnd)
+    # 方法一
+    # mainWindow.setCentralWidget(centralWidget)
+    # 方法二
+    mainFrame.horizontalLayout_2.addWidget(centralWidget)
 
     # 隐含窗口标题栏win32con.GW_CHILD &
     ISTYLE = win32gui.GetWindowLong(hwnds[0], win32con.GWL_STYLE)
-    win32gui.SetWindowLong(hwnds[0], win32con.GWL_STYLE, ISTYLE & ~win32con.WS_CAPTION)
-    win32gui.SetWindowPos(hwnds[0], win32con.HWND_TOPMOST, 250, 0, 1024, 768, win32con.SWP_NOSIZE | win32con.SWP_NOMOVE)
-    # print(win32gui.SetForegroundWindow(hwnds[0]))
-    # win32gui.SetFocus()
-    # 解决子窗口获取焦点问题
-    # hForeWnd = win32process.GetForegroundWindow();
-    dwCurID = win32process.GetCurrentProcessId();
-    dwForeID = win32process.GetWindowThreadProcessId(hwnds[0]);
-    print(dwCurID)
-    print(dwForeID)
-    win32process.AttachThreadInput(dwCurID, dwForeID[0], True);
-    # Set surpac window as subwindows
-    time.sleep(1)
-    win32gui.SetParent(hwnds[0], mainWindow.winId())
-    time.sleep(1)
+    win32gui.SetWindowLong(hwnds[0], win32con.GWL_STYLE,
+                           ISTYLE & ~win32con.WS_CAPTION & win32con.SWP_NOSIZE & win32con.SWP_NOMOVE)
 
-    # exit app
+    # 退出应用
     sys.exit(app.exec_())
