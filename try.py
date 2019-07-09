@@ -7,10 +7,10 @@ import time
 import win32con
 import win32gui
 import win32process
+from PySide2.QtCore import QUrl, QCoreApplication, Qt
 from PySide2.QtGui import QWindow
-from PySide2.QtCore import QUrl
+from PySide2.QtWebEngineWidgets import QWebEngineView
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
-from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 
 from MainFrame import Ui_MainWindow
 
@@ -61,7 +61,7 @@ def on_close_connect_click(hwnd):
 def on_move_connect_click(hwnd):
     win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 100, 100, 600, 400, win32con.SWP_SHOWWINDOW)
 
-
+# 关闭列出的所有进程id号的进程
 def killProcess(pids):
     for pid in pids:
         _pid = int(pid)
@@ -71,6 +71,8 @@ def killProcess(pids):
         except OSError:
             print('no such process(pid=%s)' % pid)
 
+def create_tab(self,webview):
+    print("===================Create====================")
 
 if __name__ == "__main__":
     # 关闭所有带有关键字surpac的进程
@@ -99,26 +101,31 @@ if __name__ == "__main__":
     # print("hwnd2=%s" % hwnd2)
 
     # 建立并打开主窗口
-    app = QApplication()
+    app = QApplication(sys.argv)
+    # QCoreApplication.setAttribute(Qt.AA_UseSoftwareOpenGL)
     mainWindow = QMainWindow()
     mainFrame = Ui_MainWindow()
     mainFrame.setupUi(mainWindow)
     mainWindow.setWindowTitle("中矿智信大数据集成客户端")
     mainWindow.showMaximized()
 
+    # 显示网页tab
     webView = QWebEngineView(mainWindow)
-    webView.load(QUrl("http://www.zjky.cn/"))
+    # webView.load(QUrl("http://www.zjky.cn/"))
+    webView.load(QUrl("http://www.sina.com.cn/"))
     mainFrame.horizontalLayout_1.addWidget(webView)
     time.sleep(1)
+
+    # 显示surpac的tab
     # 设置surpac窗口为主窗口的子窗口
     # 方法1
     # win32gui.SetParent(hwnds[0], mainWindow.winId())
     # 方法2
     native_wnd = QWindow.fromWinId(hwnds[0])
     centralWidget = QWidget.createWindowContainer(native_wnd)
-    # 方法一
+    # 方法2.1
     # mainWindow.setCentralWidget(centralWidget)
-    # 方法二
+    # 方法2.2
     mainFrame.horizontalLayout_2.addWidget(centralWidget)
 
     # 隐含窗口标题栏win32con.GW_CHILD &
