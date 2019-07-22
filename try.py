@@ -7,7 +7,7 @@ import time
 import win32con
 import win32gui
 import win32process
-from PySide2.QtCore import QUrl, QCoreApplication, Qt
+from PySide2.QtCore import QUrl
 from PySide2.QtGui import QWindow
 from PySide2.QtWebEngineWidgets import QWebEngineView
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
@@ -61,6 +61,7 @@ def on_close_connect_click(hwnd):
 def on_move_connect_click(hwnd):
     win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 100, 100, 600, 400, win32con.SWP_SHOWWINDOW)
 
+
 # 关闭列出的所有进程id号的进程
 def killProcess(pids):
     for pid in pids:
@@ -71,8 +72,10 @@ def killProcess(pids):
         except OSError:
             print('no such process(pid=%s)' % pid)
 
-def create_tab(self,webview):
+
+def create_tab(self, webview):
     print("===================Create====================")
+
 
 if __name__ == "__main__":
     # 关闭所有带有关键字surpac的进程
@@ -112,7 +115,8 @@ if __name__ == "__main__":
     # 显示网页tab
     webView = QWebEngineView(mainWindow)
     # webView.load(QUrl("http://www.zjky.cn/"))
-    webView.load(QUrl("http://www.sina.com.cn/"))
+    # webView.load(QUrl("http://www.sina.com.cn/"))
+    webView.load(QUrl("http://localhost:8080/#/"))
     mainFrame.horizontalLayout_1.addWidget(webView)
     time.sleep(1)
 
