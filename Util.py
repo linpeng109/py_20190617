@@ -44,6 +44,24 @@ class ProcessUtil:
             pids.append(str(pid)[begin:end].strip())
         return pids
 
+    # 根据pid获取运行端口
+    def getPortFromPid(pid):
+        _result = subprocess.Popen("netstat -aon|findstr " + pid, shell=True, stdout=subprocess.PIPE)
+        _lines = _result.stdout.readlines()
+        ports = []
+        for port in _lines:
+            _port = str(port).replace(' ', '') \
+                .replace('.', '') \
+                .replace(':', '') \
+                .replace("b'", '') \
+                .replace("\\r\\n'", '') \
+                .replace('TCP0000', '') \
+                .replace(str(pid), '') \
+                .replace('00000LISTENING', '')
+            if len(_port) <= 10:
+                ports.append(_port)
+        return ports
+
     # 关闭列出的所有进程id号的进程
     def killProcess(pids):
         for pid in pids:
@@ -54,17 +72,17 @@ class ProcessUtil:
             except OSError:
                 print('no such process(pid=%s)' % pid)
 
-        # 通过pid获取包含指定窗口特征名的窗口句柄
-        def GetTheMainWindow(self, pid, spTitle):
-            hwnds = []
-            while True:
-                hwnds = self.getHwndFromPid(pid)
-                if (len(hwnds) > 0):
-                    _title = win32gui.GetWindowText((hwnds[0]))
-                    if (spTitle in _title):
-                        break
-                time.sleep(1)
-            return hwnds[0]
+    # 通过pid获取包含指定窗口特征名的窗口句柄
+    def GetTheMainWindow(self, pid, spTitle):
+        hwnds = []
+        while True:
+            hwnds = self.getHwndFromPid(pid)
+            if (len(hwnds) > 0):
+                _title = win32gui.GetWindowText((hwnds[0]))
+                if (spTitle in _title):
+                    break
+            time.sleep(1)
+        return hwnds[0]
 
 
 class WindowUtil:

@@ -10,7 +10,7 @@ import win32process
 from PySide2.QtCore import QUrl
 from PySide2.QtGui import QWindow
 from PySide2.QtWebEngineWidgets import QWebEngineView
-from PySide2.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QTreeWidgetItem
 
 from MainFrame import Ui_MainWindow
 
@@ -120,17 +120,31 @@ if __name__ == "__main__":
     mainFrame.horizontalLayout_1.addWidget(webView)
     time.sleep(1)
 
+    # 加入树形目录
+    tree = mainFrame.treeWidget
+    tree.setHeaderHidden(True)
+    root = QTreeWidgetItem(tree)
+    root.setText(0, '扩展命令')
+    child1 = QTreeWidgetItem(root)
+    child1.setText(0, '基本类')
+    child11 = QTreeWidgetItem(child1)
+    child11.setText(0, '清除')
+    tree.addTopLevelItem(root)
+    mainFrame.gridLayout.addWidget(tree, 0, 0, 1, 1)
+
     # 显示surpac的tab
     # 设置surpac窗口为主窗口的子窗口
     # 方法1
     # win32gui.SetParent(hwnds[0], mainWindow.winId())
     # 方法2
     native_wnd = QWindow.fromWinId(hwnds[0])
-    centralWidget = QWidget.createWindowContainer(native_wnd)
+    surpacWidget = QWidget.createWindowContainer(native_wnd)
     # 方法2.1
     # mainWindow.setCentralWidget(centralWidget)
     # 方法2.2
-    mainFrame.horizontalLayout_2.addWidget(centralWidget)
+    mainFrame.gridLayout.addWidget(surpacWidget, 0, 1, 1, 10)
+
+    time.sleep(1)
 
     # 隐含窗口标题栏win32con.GW_CHILD &
     ISTYLE = win32gui.GetWindowLong(hwnds[0], win32con.GWL_STYLE)
