@@ -115,7 +115,7 @@ class WindowUtil:
 
 class TabUtil:
     # 创建tab
-    def createTab(self, tabWidget, subWidget, subTitle):
+    def createTab(tabWidget, subWidget, subTitle):
         tab = QWidget()
         tabWidget.addTab(tab, subTitle)
         tabWidget.setCurrentWidget(tab)
@@ -124,7 +124,7 @@ class TabUtil:
         layout.addWidget(subWidget)
 
     # 关闭tab
-    def closeTab(self, tabWidget, index):
+    def closeTab(tabWidget, index):
         if tabWidget.count() > 1:
             tabWidget.removeTab(index)
         else:
@@ -171,5 +171,5 @@ class WebEngineView(QWebEngineView):
     # 重载QWebEnginView的createwindow()函数
     def createWindow(self, QWebEnginePage_WebWindowType):
         new_webview = WebEngineView(self.mainwindow)
-        self.mainwindow.create_tab(new_webview)
+        self.mainwindow.tabW
         return new_webview
