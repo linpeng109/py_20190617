@@ -1,15 +1,18 @@
+# encoding:utf-8
+import datetime
 import os
 import signal
+import socket
 import subprocess
 import time
-import datetime
 
 import win32con
 import win32gui
 import win32process
+from PySide2.QtCore import QUrl
 from PySide2.QtGui import QWindow
-from PySide2.QtWidgets import QWidget, QHBoxLayout
 from PySide2.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
+from PySide2.QtWidgets import QWidget, QHBoxLayout, QTabWidget, QPushButton
 
 
 class ProcessUtil:
@@ -113,29 +116,68 @@ class WindowUtil:
         return QWidget.createWindowContainer(native_wnd)
 
 
-class TabUtil:
-    # 创建tab
-    def createTab(tabWidget, subWidget, subTitle):
-        tab = QWidget()
-        tabWidget.addTab(tab, subTitle)
-        tabWidget.setCurrentWidget(tab)
-        layout = QHBoxLayout(tab)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(subWidget)
+class MyTabWidget(QTabWidget):
+    def __init__(self):
+        super(MyTabWidget, self).__init__()
+        self.setTabsClosable(True)
+        self.setDocumentMode(True)
+        self.setMovable(True)
+        self.tabCloseRequested.connect(self.close_Tab)
+        # for i in [1, 2, 3, 4, 5]:
+        #     tabItem = QWidget()
+        #     layout = QHBoxLayout()
+        #     layout.setSpacing(50)
+        #     layout.setDirection(QHBoxLayout.LeftToRight)
+        #     tabItem.setLayout(layout)
+        #     for j in [1, 2, 3, 4, 5, 6]:
+        #         pushBtn = QPushButton('push_' + str(i) + str(j))
+        #         pushBtn.setFixedHeight(200)
+        #         layout.addWidget(pushBtn)
+        #     self.addTab(tabItem, '测试' + str(i))
 
-    # 关闭tab
-    def closeTab(tabWidget, index):
-        if tabWidget.count() > 1:
-            tabWidget.removeTab(index)
+    def create_Tab(self, widgets):
+        tabItem = QWidget()
+        layout = QHBoxLayout()
+        layout.setSpacing(30)
+        layout.setDirection(QHBoxLayout.LeftToRight)
+        for widget in widgets:
+            layout.addWidget(widget)
+        tabItem.setLayout(layout)
+        self.addTab(tabItem, '新标签')
+        self.setCurrentWidget(tabItem)
+
+    def close_Tab(self, index):
+        if self.count() > 1:
+            self.removeTab(index)
         else:
-            self.close()  # 当只有1个tab时，关闭主窗口
+            self.close()
+
+
+class SocketClient:
+
+    def __init__(self, port, encode):
+        self.HOST = 'localhost'
+        self.BUFSIZ = 1024
+        self.PORT = port
+        self.ENCODE = encode
+        self.ADDR = (self.HOST, port)
+        self.tcpCliSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.tcpCliSock.connect(self.ADDR)
+
+    def sendMsg(self, msg):
+        self.tcpCliSock.sendall(msg.encode(self.ENCODE))
+        result = self.tcpCliSock.recv(self.BUFSIZ)
+        return result
+
+    def closeSocket(self):
+        self.tcpCliSock.close()
 
 
 class WebEngineView(QWebEngineView):
 
-    def __init__(self, parent=None):
+    def __init__(self, tabWidget, parent=None):
         super(WebEngineView, self).__init__(parent)
-        self.mainwindow = QWebEngineView()
+        self.tabwidget = tabWidget
         self.settings().setAttribute(QWebEngineSettings.PluginsEnabled, True)  # 支持视频播放
         self.page().windowCloseRequested.connect(self.on_windowCloseRequested)  # 页面关闭请求
         self.page().profile().downloadRequested.connect(self.on_downloadRequested)  # 页面下载请求
@@ -170,6 +212,7 @@ class WebEngineView(QWebEngineView):
 
     # 重载QWebEnginView的createwindow()函数
     def createWindow(self, QWebEnginePage_WebWindowType):
-        new_webview = WebEngineView(self.mainwindow)
-        self.mainwindow.tabW
+        print(self)
+        new_webview = WebEngineView(self.tabwidget)
+        self.tabwidget.create_Tab([new_webview])
         return new_webview

@@ -1,3 +1,4 @@
+# encoding:utf-8
 import socket
 
 
@@ -22,7 +23,14 @@ class SocketClient:
 
 
 if __name__ == '__main__':
-    socket = SocketClient(8890, 'gbk')
-    result = socket.sendMsg('abcdefg')
+    socket = SocketClient(1091, 'gbk')
+    tclFile = 'SMOP_GEOLOGY:m800_创建目录.tbc'
+    msg = 'RCTL\n' \
+          + 'TCLSCRIPTBEGIN\n' \
+          + 'set status [ SclFunction \"RECALL ANY FILE\" {file= \"' \
+          + tclFile \
+          + '\"}]' \
+          + 'TCLSCRIPTEND\n'
+    result = socket.sendMsg(msg)
     print(result.decode(socket.ENCODE))
     socket.closeSocket()

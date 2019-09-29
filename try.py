@@ -7,12 +7,13 @@ import time
 import win32con
 import win32gui
 import win32process
-from PySide2.QtCore import QUrl
+from PySide2.QtCore import QUrl, SIGNAL
 from PySide2.QtGui import QWindow
 from PySide2.QtWidgets import QApplication, QMainWindow, QWidget, QTreeWidgetItem
 
 from MainFrame import Ui_MainWindow
 from Util import WebEngineView
+from socketcc import SocketClient
 
 
 def startProcess():
@@ -115,7 +116,8 @@ if __name__ == "__main__":
     # 显示网页tab
     # webView = QWebEngineView(mainWindow)
     webView = WebEngineView(mainWindow)
-    webView.load(QUrl("http://www.auxin-tech.com.cn/"))
+    webView.load(QUrl("http://www.sinomine.com.cn/"))
+    # webView.load(QUrl("http://www.auxin-tech.com.cn/"))
     # webView.load(QUrl("http://www.zjky.cn/"))
     # webView.load(QUrl("http://www.sina.com.cn/"))
     # webView.load(QUrl("http://localhost:8080/#/"))
@@ -126,8 +128,20 @@ if __name__ == "__main__":
     mainFrame.horizontalLayout_1.addWidget(webView)
     time.sleep(1)
 
-    # 加入树形目录
+
+    def onClick(self, item):
+        print(item)
+        socket = SocketClient(2672,'gbk')
+        message = 'RCTL\n' + 'TCLSCRIPTBEGIN\n' + 'set status [ SclFunction \"EXIT GRAPHICS\" {} ]' + 'TCLSCRIPTEND\n'
+        result = socket.sendMsg(message)
+        print(result.decode(socket.ENCODE))
+        socket.closeSocket()
+
+        # 加入树形目录
+
+
     tree = mainFrame.treeWidget
+    tree.connect(tree, SIGNAL('itemClicked(QTreeWidgetItem*, int)'), onClick)
     tree.setHeaderHidden(True)
     root = QTreeWidgetItem(tree)
     root.setText(0, '扩展命令（中矿智信）')
@@ -297,6 +311,7 @@ if __name__ == "__main__":
     child7k.setText(0, '以面积求多边形')
     child7l = QTreeWidgetItem(child7)
     child7l.setText(0, '将2根线在交点断开')
+    child7l.setData(0,)
 
     tree.addTopLevelItem(root)
     # root.connect(root,SIN)
